@@ -1,16 +1,17 @@
-This is for learning Djang0
---------------------------------------------
+This is for learning Jetpack compose by Google
+
+
 
 
 Instructions for a valid contribution >>>
--------------------------------------------------
-Code should be clean and less.                  |
-Component reusability should be at it's peak.   |
-Merge request should have proper title.         |
-Don't forget to add comments in your code       |
--------------------------------------------------
+----------------------------------------------------------
+1. Code should be clean and less.                         |
+2. Component reusability should be at it's peak.          |
+3. Merge request should have proper title.                |
+3. Don't forget to add comments in your code              |
+----------------------------------------------------------
 
 
-HAPPY CODING GUYS
+HAPPY CODING GUYS 
 
 Keep contributing :)
