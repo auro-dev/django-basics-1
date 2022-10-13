@@ -1,3 +1,4 @@
+from re import U
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -53,5 +54,45 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email+"::::"+self.name
 
+
+
+class UserPostsManager(BaseUserManager):
+    """Manage for user profiles"""
+    def create_post(self, title, url):
+        if not title:
+            raise ValueError("Posts must have title")
+        
+        title = title.set_title(title)
+        url = url.set_title(url)
+        post = self.model(title=title, url=url)
+
+        post.save(using = self._db)
+
+        return post
+
+
+class UserPosts(AbstractBaseUser, PermissionsMixin):
+    """Database models for user posts"""
+    title = models.CharField(max_length = 255)
+    url = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default = True)
+
+    objects = UserPostsManager()
     
+    REQUIRED_FIELDS = ['title', 'url']
+
+
+    def get_post_name(self):
+        """Retrieve post name"""
+        return self.title
+
+    def get_url(self):
+        """Retrieve post url"""
+        return self.url
+
+    def __str__(self):
+        return self.title+"::::"+self.url
+
+    
+
 

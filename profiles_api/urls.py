@@ -4,8 +4,11 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register("hello-viewset", views.HelloViewSet, base_name='hello-viewset')
+router.register("posts-viewset", views.PostViewSet, base_name='posts-viewset')
+
 
 urlpatterns = [
     path('hello-view/', views.HelloAPIView.as_view()),
+     path('posts-view/', views.PostAPIView.as_view()),
     path('', include(router.urls))
 ]
