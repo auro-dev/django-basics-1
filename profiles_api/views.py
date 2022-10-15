@@ -144,11 +144,11 @@ class PostAPIView(APIView):
         return Response({"method": "Post deleted successfully"})
 
 
-class PostViewSet(viewsets.ViewSet):
+class CityViewSet(viewsets.ViewSet):
     """Test APi view set"""
 
     def list(self, request):
-        """Return a psot message"""
+        """Return a city llits"""
         
         a_viewset = [
             "User actions (list, create , view)",
@@ -165,8 +165,7 @@ class PostViewSet(viewsets.ViewSet):
 
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
-            message = f'Hello {name}'
-            return Response({"message": message})
+            return Response({"name": name})
         else:
             return Response(
                 serializer.errors, 
@@ -189,3 +188,49 @@ class PostViewSet(viewsets.ViewSet):
     def delete(self, request, pk=None):
         """Remove an object"""
         return Response({"http_method": "DELETE"})
+
+
+
+
+class CityAPIView(APIView):
+    """City API View"""
+
+    serializer_class = serializers.CitiesSerializer
+
+    def get(self, request, format=None):
+        """Returns list of API views features"""
+
+        api_view = [
+            'This have many mehtods like get, put , patch, post, delete',
+            'Is similar to django view',
+            'gives you superpower of customisaation',
+            'mapped manually with urls'
+        ]
+
+        return Response({'message': 'Posts!','api_view': api_view})
+
+    def post(self, request, format=None):
+        """Create a  city"""
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            return Response({"name": name})
+        else:
+            return Response(
+                serializer.errors, 
+                status = status.HTTP_400_BAD_REQUEST,
+            )
+     
+    def put(self, request, pk=None):
+        """Put post"""
+        return Response({"method": "PUT"})
+    
+    def patch(self, request, pk=None):
+        """Patch / edit posts"""
+        return Response({"method": "PATCH"})
+
+    
+    def delete(self, request, pk=None):
+        """delete a post"""
+        return Response({"method": "Post deleted successfully"})
