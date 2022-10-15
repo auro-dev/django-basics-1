@@ -93,6 +93,33 @@ class UserPosts(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.title+"::::"+self.url
 
+
+
+class CityManager():
+    """Manage for  city"""
+    def create_city(self, name, url):
+        if not name:
+            raise ValueError("Posts must have name")
+        name = name.set_name(name)
+        city = self.model(name=name)
+        city.save(using = self._db)
+        return city
+
+
+class Cities(AbstractBaseUser, PermissionsMixin):
+    """Database models for cities"""
+    name = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default = True)
+
+    objects = CityManager()
     
+    REQUIRED_FIELDS = ['name']
 
 
+    def get_city(self):
+        """Retrieve city"""
+        return self.name
+
+
+    def __str__(self):
+        return self.name

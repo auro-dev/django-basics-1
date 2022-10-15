@@ -17,4 +17,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
 class SaveSerializer(serializers.ModelSerializer):
     """Serializes a save object"""
+
+class CitiesSerializer(serializers.ModelSerializer):
+    """Serializes a city object"""
     
