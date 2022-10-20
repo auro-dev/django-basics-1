@@ -123,3 +123,37 @@ class Cities(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+    
+    
+ 
+class FriendRequestManager():
+    """Manage for  Friend requests"""
+    def create_request(self, from, to):
+        if not name:
+            raise ValueError("Requests must have from & to ")
+        from = from.set_name(from)
+        to = to.set_name(to)
+        request = self.model(from=from, to=to)
+        request.save(using = self._db)
+        return request
+
+
+class FriendRequests(AbstractBaseUser, PermissionsMixin):
+    """Database models for friend requests"""
+    from = models.CharField(max_length = 255)
+    to = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default = True)
+
+    objects = FriendRequestManager()
+    
+    REQUIRED_FIELDS = ['from', 'to']
+
+
+    def get_requests(self):
+        """Retrieve requests"""
+        return self.name
+
+
+    def __str__(self):
+        return self.name
+
