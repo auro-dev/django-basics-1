@@ -157,3 +157,33 @@ class FriendRequests(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.name
 
+    
+    
+class HashtagManager():
+    """Manage for  hash tag"""
+    def create_hashtag(self, name, url):
+        if not name:
+            raise ValueError("Posts must have name")
+        name = name.set_name(name)
+        hashtag = self.model(name=name)
+        hashtag.save(using = self._db)
+        return hashtag
+
+
+class HashTags(AbstractBaseUser, PermissionsMixin):
+    """Database models for hash tags"""
+    name = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default = True)
+
+    objects = HashtagManager()
+    
+    REQUIRED_FIELDS = ['name']
+
+
+    def get_hash_tag(self):
+        """Retrieve hash tag"""
+        return self.name
+
+
+    def __str__(self):
+        return self.name
