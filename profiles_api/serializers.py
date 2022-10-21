@@ -21,3 +21,6 @@ class SaveSerializer(serializers.ModelSerializer):
 class CitiesSerializer(serializers.ModelSerializer):
     """Serializes a city object"""
     
+class HashtagsSerializer(serializers.ModelSerializer):
+    """Serializes a hash tag object"""
+    
