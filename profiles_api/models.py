@@ -187,3 +187,35 @@ class HashTags(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+
+
+
+
+class OrderManager():
+    """Manage for  orders"""
+    def create_order(self, items, url):
+        if not items:
+            raise ValueError("Orders must have items")
+        items = items.set_items(items)
+        order = self.model(name=items)
+        order.save(using = self._db)
+        return order
+
+
+class Orders(AbstractBaseUser, PermissionsMixin):
+    """Database models for orders"""
+    items = models.CharField(max_length = 255)
+    is_active = models.BooleanField(default = True)
+
+    objects = OrderManager()
+    
+    REQUIRED_FIELDS = ['items']
+
+
+    def get_orders(self):
+        """Retrieve orders"""
+        return self.items
+
+
+    def __str__(self):
+        return self.items
